@@ -13,6 +13,12 @@
       ]
     }
   ],
+  "rewrites": [
+    { "source": "/aviso-legal", "destination": "/pages/aviso-legal.html" },
+    { "source": "/aviso-legal.html", "destination": "/pages/aviso-legal.html" },
+    { "source": "/politica-privacidad", "destination": "/pages/politica-privacidad.html" },
+    { "source": "/politica-privacidad.html", "destination": "/pages/politica-privacidad.html" }
+  ],
   "routes": [
     { "handle": "filesystem" },
     { "src": "/(.*)", "status": 404, "dest": "/404.html" }

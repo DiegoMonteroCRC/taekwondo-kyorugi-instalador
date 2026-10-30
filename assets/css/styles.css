@@ -1,0 +1,67 @@
+/* ==========================================================================
+   TKD Judge Systems - Estilos Principales y Clases de Utilidad
+   tkdjudgesystems.com
+   ========================================================================== */
+
+/* Fuente de Iconografía Material Symbols */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Patrón de Rejilla Tecnológica (Cyber Grid) */
+.grid-lines {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Efectos de Resplandor Neón (Glows) */
+.glow-primary {
+  box-shadow: 0 0 35px -5px rgba(30, 94, 255, 0.45);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 35px -5px rgba(255, 59, 92, 0.45);
+}
+
+.glow-gold {
+  box-shadow: 0 0 35px -5px rgba(233, 195, 73, 0.4);
+}
+
+/* Scrollbar Personalizado de Alta Fidelidad */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0e15;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e2638;
+  border-radius: 4px;
+  border: 2px solid #0b0e15;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2f3b54;
+}
+
+/* Selección de Texto */
+::selection {
+  background-color: #1e5eff;
+  color: #ffffff;
+}

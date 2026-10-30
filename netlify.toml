@@ -11,6 +11,26 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
 
 [[redirects]]
+  from = "/aviso-legal"
+  to = "/pages/aviso-legal.html"
+  status = 200
+
+[[redirects]]
+  from = "/aviso-legal.html"
+  to = "/pages/aviso-legal.html"
+  status = 200
+
+[[redirects]]
+  from = "/politica-privacidad"
+  to = "/pages/politica-privacidad.html"
+  status = 200
+
+[[redirects]]
+  from = "/politica-privacidad.html"
+  to = "/pages/politica-privacidad.html"
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/404.html"
   status = 404

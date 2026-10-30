@@ -7,16 +7,15 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://tkdjudgesystems.com/aviso-legal.html</loc>
+    <loc>https://tkdjudgesystems.com/pages/aviso-legal.html</loc>
     <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://tkdjudgesystems.com/politica-privacidad.html</loc>
+    <loc>https://tkdjudgesystems.com/pages/politica-privacidad.html</loc>
     <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 </urlset>
-

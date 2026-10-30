@@ -2,11 +2,11 @@
   "name": "tkd-judge-systems",
   "version": "1.0.0",
   "description": "Sitio web comercial y plataforma para TKD Judge Systems - Sistema Integral de Puntuación para Taekwondo (tkdjudgesystems.com)",
-  "main": "server.js",
+  "main": "scripts/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js",
-    "test": "node -e \"console.log('Validación de archivos completa')\""
+    "start": "node scripts/server.js",
+    "dev": "node scripts/server.js",
+    "test": "node -e \"console.log('Validación de arquitectura y archivos completa')\""
   },
   "keywords": [
     "tkd-judge-systems",

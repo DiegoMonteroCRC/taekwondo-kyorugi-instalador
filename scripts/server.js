@@ -1,10 +1,12 @@
-// Servidor local ligero para TKD Judge Web (sin dependencias externas)
+// Servidor local ligero para TKD Judge Systems (sin dependencias externas)
+// tkdjudgesystems.com
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = process.env.PORT || 3000;
-const BASE_DIR = __dirname;
+let PORT = parseInt(process.env.PORT, 10) || 3000;
+// Directorio raíz del proyecto (un nivel arriba de scripts/)
+const BASE_DIR = path.resolve(__dirname, '..');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -25,13 +27,15 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer((req, res) => {
-  // CORS & Security headers
+  // CORS & Cabeceras de Seguridad
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
 
-  // Forzar HTTPS en entornos detrás de proxy (reverse proxy / producción)
+  // Forzar HTTPS en entornos de proxy inverso / producción
   const forwardedProto = req.headers['x-forwarded-proto'];
   if (forwardedProto && forwardedProto === 'http') {
     res.writeHead(301, { 'Location': 'https://' + req.headers.host + req.url });
@@ -39,7 +43,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // Preflight OPTIONS handling
+  // Preflight OPTIONS
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
     res.end();
@@ -47,11 +51,19 @@ const server = http.createServer((req, res) => {
   }
 
   let reqPath = decodeURI(req.url.split('?')[0]);
+
+  // Enrutamiento de URLs amigables y páginas estándar
   if (reqPath === '/' || reqPath === '') {
     reqPath = '/index.html';
+  } else if (reqPath === '/aviso-legal' || reqPath === '/aviso-legal.html') {
+    reqPath = '/pages/aviso-legal.html';
+  } else if (reqPath === '/politica-privacidad' || reqPath === '/politica-privacidad.html') {
+    reqPath = '/pages/politica-privacidad.html';
+  } else if (reqPath === '/404') {
+    reqPath = '/pages/404.html';
   }
 
-  // API endpoint para recibir solicitudes de contacto directamente en el servidor
+  // API endpoint local de respaldo para leads
   if (req.method === 'POST' && reqPath === '/api/contacto') {
     let body = '';
     req.on('data', chunk => { body += chunk.toString(); });
@@ -96,7 +108,7 @@ const server = http.createServer((req, res) => {
 
   const filePath = path.normalize(path.join(BASE_DIR, reqPath));
 
-  // Security: prevent path traversal outside BASE_DIR
+  // Seguridad: evitar path traversal fuera del directorio raíz
   if (!filePath.startsWith(BASE_DIR)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     res.end('403 Prohibido');
@@ -106,7 +118,10 @@ const server = http.createServer((req, res) => {
   fs.stat(filePath, (err, stats) => {
     if (err || !stats.isFile()) {
       // Servir página de error 404 personalizada con código 404
-      const notFoundPath = path.join(BASE_DIR, '404.html');
+      const notFoundPath = fs.existsSync(path.join(BASE_DIR, 'pages', '404.html'))
+        ? path.join(BASE_DIR, 'pages', '404.html')
+        : path.join(BASE_DIR, '404.html');
+
       fs.readFile(notFoundPath, (err404, data404) => {
         if (err404) {
           res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
@@ -135,11 +150,26 @@ const server = http.createServer((req, res) => {
   });
 });
 
+server.on('error', (err) => {
+  if ((err.code === 'EADDRINUSE' || err.code === 'EACCES') && PORT !== 8080) {
+    const fallbackPort = 8080;
+    console.warn(`Puerto ${PORT} no disponible (${err.code}). Intentando en el puerto ${fallbackPort}...`);
+    PORT = fallbackPort;
+    server.listen(PORT);
+  } else {
+    console.error('Error en el servidor:', err);
+  }
+});
+
 server.listen(PORT, () => {
+  const actualPort = server.address().port;
   console.log(`===============================================`);
   console.log(` 🥋 TKD Judge Systems Web iniciado con éxito`);
-  console.log(` URL local:        http://localhost:${PORT}`);
+  console.log(` URL local:        http://localhost:${actualPort}`);
   console.log(` Dominio oficial:  https://tkdjudgesystems.com`);
+  console.log(` Servidor:         Node.js nativo (scripts/server.js)`);
   console.log(` Presione Ctrl+C para detener el servidor`);
   console.log(`===============================================`);
 });
+
+module.exports = server;
