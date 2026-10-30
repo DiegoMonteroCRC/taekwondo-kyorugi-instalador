@@ -50,7 +50,7 @@ Para descargar el instalador más reciente para Windows (64-bits):
 
 Si deseas adquirir una licencia oficial (**Semanal para Torneos**, **Mensual** o **Anual para Academias y Federaciones**):
 
-- **Solicitud en línea:** Abre una solicitud indicando el nombre de tu academia o evento, el plan de interés y tu medio de contacto haciendo clic en [**Solicitar Licencia o Cotización**](https://forms.gle/MkMvy6BLpiHTtZaK8).
+- **Solicitud en línea:** Abre una solicitud indicando el nombre de tu academia o evento, el plan de interés y tu medio de contacto haciendo clic en [**Solicitar Licencia o Cotización**](https://diegomonterocrc.github.io/taekwondo-kyorugi-instalador/).
 
 ---
 
