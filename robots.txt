@@ -1,0 +1,7 @@
+# robots.txt para TKD Judge Systems (tkdjudgesystems.com)
+User-agent: *
+Allow: /
+
+# Sitemap oficial
+Sitemap: https://tkdjudgesystems.com/sitemap.xml
+

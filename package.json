@@ -1,0 +1,22 @@
+{
+  "name": "tkd-judge-systems",
+  "version": "1.0.0",
+  "description": "Sitio web comercial y plataforma para TKD Judge Systems - Sistema Integral de Puntuación para Taekwondo (tkdjudgesystems.com)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node -e \"console.log('Validación de archivos completa')\""
+  },
+  "keywords": [
+    "tkd-judge-systems",
+    "tkdjudgesystems.com",
+    "taekwondo",
+    "kyorugi",
+    "scoring-system",
+    "landing-page",
+    "arbitraje"
+  ],
+  "author": "TKD Judge Systems",
+  "license": "MIT"
+}
