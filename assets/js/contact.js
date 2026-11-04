@@ -1,18 +1,14 @@
 /**
- * TKD Judge Systems - Módulo de Contacto, Cotización y WhatsApp
- * Integración nativa con Web3Forms API y WhatsApp Direct
+ * TKD Judge Systems - Módulo de Contacto y Cotización
+ * Integración nativa con Web3Forms API
  * tkdjudgesystems.com
  */
 
 // 1. Clave de acceso a Web3Forms:
 const WEB3FORMS_ACCESS_KEY = "ed4b8dc8-8944-4f5d-8f0f-c5a2ce5e6a20";
 
-// 2. Número de WhatsApp para contacto directo y atención inmediata:
-// (Formato internacional sin signos: 506 + número celular en Costa Rica)
-const CONFIG_WHATSAPP_NUMERO = "50670812041";
-
 /**
- * Procesa el envío del formulario con Web3Forms y sincroniza el enlace de WhatsApp
+ * Procesa el envío del formulario con Web3Forms
  * @param {Event} e - Evento de submit del formulario
  */
 async function handleFormSubmit(e) {
@@ -24,7 +20,6 @@ async function handleFormSubmit(e) {
   const successBanner = document.getElementById('form-success');
   const errorBanner = document.getElementById('form-error');
   const errorDesc = document.getElementById('form-error-desc');
-  const btnWhatsapp = document.getElementById('btn-whatsapp-direct');
 
   // Ocultar avisos previos
   if (errorBanner) errorBanner.classList.add('hidden');
@@ -51,7 +46,7 @@ async function handleFormSubmit(e) {
   // Validación preventiva de Access Key
   if (!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === "TU_ACCESS_KEY_AQUI") {
     if (errorBanner && errorDesc) {
-      errorDesc.textContent = "Falta ingresar tu Access Key de Web3Forms. Puedes generarla gratis en https://web3forms.com.";
+      errorDesc.textContent = "Falta configurar el Access Key de Web3Forms. Puede generarla gratis en https://web3forms.com con su correo tkdjudgesystems@gmail.com.";
       errorBanner.classList.remove('hidden');
       errorBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -75,6 +70,7 @@ async function handleFormSubmit(e) {
         botcheck: "",
         subject: `🥋 Nueva Cotización TKD Judge Systems: ${formData.organizacion} (${formData.nombre})`,
         from_name: "TKD Judge Systems (tkdjudgesystems.com)",
+        replyto: formData.email,
         "Nombre": formData.nombre,
         "Organización": formData.organizacion,
         "Email": formData.email,
@@ -88,21 +84,6 @@ async function handleFormSubmit(e) {
     const result = await response.json();
 
     if (result.success) {
-      // Configurar enlace directo a WhatsApp con los datos ya completados
-      const waText = encodeURIComponent(
-        `🥋 *Nueva Solicitud - TKD Judge Systems*\n\n` +
-        `👤 *Nombre:* ${formData.nombre}\n` +
-        `🏢 *Academia / Federación:* ${formData.organizacion}\n` +
-        `📧 *Email:* ${formData.email}\n` +
-        `📱 *Teléfono:* ${formData.telefono}\n` +
-        `🎯 *Modalidad:* ${formData.modalidad}\n` +
-        (formData.detalles ? `📝 *Detalles:* ${formData.detalles}\n` : '') +
-        `\n_Enviado desde tkdjudgesystems.com_`
-      );
-      if (btnWhatsapp) {
-        btnWhatsapp.href = `https://wa.me/${CONFIG_WHATSAPP_NUMERO}?text=${waText}`;
-      }
-
       // Respaldo de seguridad en el almacenamiento local del cliente
       try {
         const storedLeads = JSON.parse(localStorage.getItem('tkd_judge_leads') || '[]');
@@ -120,7 +101,7 @@ async function handleFormSubmit(e) {
   } catch (err) {
     console.error("Error al enviar con Web3Forms:", err);
     if (errorBanner && errorDesc) {
-      errorDesc.textContent = err.message || "Hubo un problema de conexión al enviar el formulario. Por favor contáctenos directamente por WhatsApp.";
+      errorDesc.textContent = err.message || "Hubo un problema de conexión al enviar el formulario. Por favor verifique sus datos o intente nuevamente.";
       errorBanner.classList.remove('hidden');
       errorBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
@@ -130,4 +111,3 @@ async function handleFormSubmit(e) {
     submitBtn.disabled = false;
   }
 }
-
