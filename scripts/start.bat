@@ -13,3 +13,4 @@ if %errorlevel% equ 0 (
   echo Abriendo index.html en su navegador predeterminado...
   start index.html
 )
+

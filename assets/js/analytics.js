@@ -17,3 +17,4 @@ if (window.GA_MEASUREMENT_ID && window.GA_MEASUREMENT_ID !== "G-XXXXXXXXXX") {
   gtag('js', new Date());
   gtag('config', window.GA_MEASUREMENT_ID);
 }
+
