@@ -71,4 +71,4 @@ Si ya cuentas con el **Sistema Taekwondo Kyorugi** instalado en tu equipo:
 
 ---
 
-© **Sistema Taekwondo Kyorugi** — Todos los derechos reservados.
+© **TKD Judge Systems** — Todos los derechos reservados.
